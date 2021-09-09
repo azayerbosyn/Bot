@@ -20,4 +20,12 @@ public interface RateRepository extends CrudRepository<Rate, Long> {
     + "           do update set currency = :currency ", nativeQuery = true)
   void saveRate(@Param("currency") String currency, @Param("amount") Double amount);
 
+
+  @Query(value = "select currency, amount, createdAt from Rate "
+    + "           where currency = :currency "
+    + "           order by createdAt asc "
+    + "           limit 10 offset 0", nativeQuery = true)
+  List<Rate> findAmountByCurrencyAndOrderByCreatedAt(@Param("currency") String currency);
+
+
 }
